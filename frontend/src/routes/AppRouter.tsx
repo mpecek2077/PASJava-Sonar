@@ -19,7 +19,7 @@ import GroupNotificationsListener from "../components/GroupNotifications/GroupNo
 const App = () => {
   return (
     <Router>
-      <GroupNotificationsListener />
+      <GroupNotificationsListener onRefresh={() => {}} />
       <Navbar />
       <BalanceBar />
       <div className="container">
