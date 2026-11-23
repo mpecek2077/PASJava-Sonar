@@ -1,1 +1,38 @@
-Maksymilian Pęcek, Aplikacja budżetowa
+# Budget & Group Debt Management App (`PASJava-Sonar`)
+
+Full-stack web application for tracking personal income/expenses and settling shared group debts. Built with a **Java 21 / Spring Boot** backend (exposing both REST and GraphQL APIs with real-time WebSocket notifications) and a **React / TypeScript** frontend, containerized with Docker and integrated with automated CI/CD static code analysis in **SonarCloud**.
+
+## Key Features
+
+- **Authentication & Security:** User registration and login secured with Spring Security and stateless **JWT** tokens (`JwtAuthFilter`).
+- **Personal Budget Tracking:** Adding, categorizing, and filtering income and expense transactions with real-time balance calculation.
+- **Group Expense Splitting & Debts:** Creating groups, managing memberships, logging shared group transactions, and automatically calculating member balances/debts.
+- **Real-Time Notifications:** Live updates for group activities delivered via **WebSockets** (`WebSocketConfig`, `NotificationService`).
+- **Hybrid API Architecture:** REST endpoints for authentication and core transactions alongside a **GraphQL** schema (`schema.graphqls`) for flexible querying of groups, memberships, and debts.
+- **Automated Quality Gates:** Every push and pull request triggers a **GitHub Actions** pipeline (`.github/workflows/sonar.yml`) running builds, unit tests, and static code analysis in **SonarCloud**.
+
+## Tech Stack
+
+- **Backend:** Java 21, Spring Boot, Spring Security (JWT), Spring for GraphQL, WebSockets, Maven, MySQL
+- **Frontend:** React, TypeScript, Vite, SCSS Modules, Axios, GraphQL Client
+- **DevOps & Code Quality:** Docker, Docker Compose, Nginx, GitHub Actions, SonarCloud, JUnit
+
+## Project Structure
+
+```text
+PASJava-Sonar/
+├── .github/workflows/
+│   └── sonar.yml              # CI/CD pipeline with SonarCloud static analysis
+├── backend/
+│   ├── src/main/java/...      # Controllers (REST & GraphQL), Services, Security, DTOs, Models
+│   ├── src/main/resources/    # Application config & GraphQL schema
+│   ├── src/test/java/...      # Backend unit & integration tests
+│   └── Dockerfile
+├── frontend/
+│   ├── src/                   # React components, pages, API clients, routing & SCSS modules
+│   ├── nginx.conf             # Production Nginx reverse-proxy/static config
+│   └── Dockerfile
+├── docker-compose.yml         # Multi-container orchestration
+└── sonar-project.properties   # SonarCloud configuration
+
+Maksymilian Pęcek
