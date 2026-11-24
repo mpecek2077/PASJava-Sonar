@@ -1,6 +1,6 @@
 # Budget Split — Personal Budget & Group Debt Management
 
-[![CI & SonarCloud](https://github.com/mpecek2077/PASJava-Sonar/actions/workflows/sonar.yml/badge.svg)](https://github.com/mpecek2077/PASJava-Sonar/actions/workflows/sonar.yml)
+[![CI & SonarCloud](https://github.com/mpecek2077/budget-split/actions/workflows/sonar.yml/badge.svg)](https://github.com/mpecek2077/budget-split/actions/workflows/sonar.yml)
 
 Full-stack web application for tracking personal income/expenses and splitting shared group debts. Built with a **Java 21 / Spring Boot 4** backend (REST, GraphQL, WebSockets, OpenAPI/Swagger) and a **React / TypeScript** frontend, containerized with Docker Compose and backed by automated testing (**Testcontainers MySQL 8.4**, **Playwright E2E**, **JaCoCo**) and **SonarCloud** quality gates.
 
@@ -95,7 +95,7 @@ npm run test:e2e
 ## Project Structure
 
 ```text
-PASJava-Sonar/
+budget-split/
 ├── .github/workflows/
 │   └── sonar.yml              # CI/CD: Maven tests, JaCoCo, SonarCloud, Playwright E2E
 ├── backend/
