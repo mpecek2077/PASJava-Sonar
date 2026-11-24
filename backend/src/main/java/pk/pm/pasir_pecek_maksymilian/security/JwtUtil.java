@@ -1,4 +1,4 @@
-package pk.pm.pasir_pecek_maksymilian.security; // Upewnij się, że pakiet jest poprawny!
+package pk.pm.pasir_pecek_maksymilian.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -15,7 +15,7 @@ import java.util.Map;
 
 @Component
 public class JwtUtil {
-    private static final long EXPIRATION_MS = 3_600_000L; // 1 godzina
+    private static final long EXPIRATION_MS = 3_600_000L; // 1 hour
     private final SecretKey key;
 
     public JwtUtil(@Value("${JWT_SECRET}") String jwtSecret) {

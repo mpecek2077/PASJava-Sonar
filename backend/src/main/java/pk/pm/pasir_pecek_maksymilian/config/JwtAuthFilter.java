@@ -34,11 +34,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String authHeader = request.getHeader("Authorization");
         String token = null;
 
-        // 1. Szukamy tokena w nagłówku (standardowe zapytania REST/GraphQL)
+        // Extract JWT from Authorization header for REST/GraphQL requests
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
         }
-        // 2. NIEZAWODNE szukanie tokena w URL (dla WebSocketów)
+        // Fallback to query param for WebSocket handshakes
         else if (request.getQueryString() != null && request.getQueryString().contains("token=")) {
             String queryString = request.getQueryString();
             int startIndex = queryString.indexOf("token=") + 6;
@@ -57,11 +57,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                                 userDetails, null, userDetails.getAuthorities()
                         );
-                        SecurityContextHolder.getContext().setAuthentication(authToken); // Ustawienie kontekstu logowania
+                        SecurityContextHolder.getContext().setAuthentication(authToken);
                     }
                 }
             } catch (Exception ex) {
-                System.out.println("Błąd parsowania JWT: " + ex.getMessage());
+                logger.debug("Failed to parse JWT token", ex);
             }
         }
 

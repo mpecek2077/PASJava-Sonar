@@ -33,7 +33,6 @@ public class TransactionGraphQLController {
         return transactionService.updateTransaction(id, transactionDTO);
     }
 
-    // Zadanie samodzielne: dodanie metody usuwającej
     @org.springframework.graphql.data.method.annotation.MutationMapping
     public Boolean deleteTransaction(@org.springframework.graphql.data.method.annotation.Argument Long id) {
         transactionService.deleteTransaction(id);
