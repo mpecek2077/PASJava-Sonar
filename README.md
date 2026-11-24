@@ -27,6 +27,20 @@ flowchart LR
     GH -->|Docker Compose Stack| PW["Playwright E2E<br/>(HTML Report Artifact)"]
 ```
 
+## Screenshots
+
+### Landing Page
+![Landing Page](docs/screenshots/home.png)
+
+### Personal Transactions & Live Balance Bar
+![Transactions List](docs/screenshots/transactions.png)
+
+### Group Expense Splitting & Debt Settlement
+![Groups and Debts](docs/screenshots/groups.png)
+
+### Interactive REST API Documentation (Swagger UI)
+![Swagger UI](docs/screenshots/swagger.png)
+
 ## Key Features
 
 - **Authentication & Security:** Stateless **JWT** authentication (`JwtAuthFilter`, HS512) with strict per-user transaction isolation and group ownership checks.
