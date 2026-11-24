@@ -10,7 +10,7 @@ const PublicRoute = ({ children }: Props) => {
   const { isAuthenticated } = useAuth();
 
   if (isAuthenticated) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/transactions" replace />;
   }
 
   return children;
