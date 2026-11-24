@@ -1,7 +1,7 @@
-// src/pages/RegisterPage/RegisterPage.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
+import { toast } from 'react-toastify';
 import { authApi } from '../../api/authApi';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import styles from './RegisterPage.module.scss';
@@ -45,13 +45,13 @@ const RegisterPage: React.FC = () => {
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    setErrors({}); // Reset błędów
+    setErrors({});
 
     if (!validate()) return;
 
     try {
       await authApi.register({ username, email, password });
-      alert('Rejestracja udana. Możesz się teraz zalogować.');
+      toast.success('Rejestracja udana. Możesz się teraz zalogować.');
       navigate('/login');
     } catch (error) {
       if (error instanceof AxiosError) {

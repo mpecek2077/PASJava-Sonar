@@ -8,7 +8,10 @@ const Navbar = () => {
   return (
     <nav className={styles.navbar}>
       <h1 className={styles.logo}>
-        <Link to="/">💰 Budget App</Link>
+        <Link to="/">
+          <span className={styles.brandDot} aria-hidden="true" />
+          Budget Split
+        </Link>
       </h1>
       <ul className={styles["nav-list"]}>
         <div className={styles["nav-container"]}>

@@ -2,14 +2,16 @@
 
 .balanceBar {
   background-color: $background-color;
-  padding: 1rem 2rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 0.85rem 2rem;
+  border-bottom: 1px solid $border-color;
   font-family: $font-family;
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: $text-color;
 }
 
 .inlineWrap {
+  max-width: 1120px;
+  margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -18,26 +20,40 @@
 }
 
 .summary {
-  font-size: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
 
   .label {
-    font-weight: 600;
-    margin-left: 0.5rem;
+    font-weight: 500;
+    color: $text-muted;
   }
 
   .value {
-    font-weight: bold;
-    color: $primary-color;
+    font-weight: 700;
+    color: $text-color;
+    background-color: $page-bg;
+    border: 1px solid $border-color;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
   }
 
   .expense {
-    font-weight: bold;
-    color: #e74c3c;
+    font-weight: 700;
+    color: $secondary-color;
+    background-color: rgba($secondary-color, 0.08);
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
   }
 
   .income {
-    font-weight: bold;
-    color: #2ecc71;
+    font-weight: 700;
+    color: $primary-color;
+    background-color: rgba($primary-color, 0.1);
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
   }
 }
 
@@ -47,19 +63,25 @@
   gap: 0.5rem;
 
   label {
-    font-weight: 600;
+    font-weight: 500;
+    color: $text-muted;
+    font-size: 0.9rem;
   }
 
   select {
-    padding: 0.4rem 0.7rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 0.95rem;
+    padding: 0.4rem 0.75rem;
+    border: 1px solid $border-color;
+    border-radius: $radius-sm;
+    background-color: $background-color;
+    color: $text-color;
+    font-size: 0.9rem;
     font-family: $font-family;
+    cursor: pointer;
 
     &:focus {
       outline: none;
       border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.14);
     }
   }
 }
