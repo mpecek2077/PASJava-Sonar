@@ -1,13 +1,15 @@
-name: SonarCloud CI
+name: CI & SonarCloud
+
 on:
   push:
     branches:
       - main
   pull_request:
     types: [opened, synchronize, reopened]
+
 jobs:
   build-and-analyze:
-    name: Build & Analyze Monorepo
+    name: Build, Test & SonarCloud
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -20,27 +22,24 @@ jobs:
         with:
           java-version: 21
           distribution: "zulu"
+          cache: "maven"
 
-      - name: Cache Maven
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
-
-      - name: Build backend
+      - name: Run backend tests & JaCoCo coverage
         working-directory: backend
-        run: mvn clean install -DskipTests
+        run: ./mvnw clean verify
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
 
-      - name: Install frontend deps
+      - name: Lint and build frontend
         working-directory: frontend
         run: |
-          npm install
+          npm ci
+          npm run lint
           npm run build
 
       - name: Cache SonarCloud
@@ -54,3 +53,60 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  e2e-playwright:
+    name: Playwright E2E
+    runs-on: ubuntu-latest
+    needs: build-and-analyze
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Prepare environment file
+        run: cp backend/.env.example backend/.env
+
+      - name: Start full stack with Docker Compose
+        run: docker compose up -d --build
+
+      - name: Wait for backend and frontend to be ready
+        run: |
+          for i in $(seq 1 45); do
+            if curl -sf http://localhost:8080/v3/api-docs > /dev/null && curl -sf http://localhost:5174 > /dev/null; then
+              echo "Services are ready"
+              exit 0
+            fi
+            sleep 2
+          done
+          docker compose logs
+          exit 1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install Playwright & Chromium
+        working-directory: frontend
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+
+      - name: Run Playwright E2E tests
+        working-directory: frontend
+        env:
+          E2E_BASE_URL: http://localhost:5174
+        run: npm run test:e2e
+
+      - name: Upload Playwright HTML report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: frontend/playwright-report/
+          retention-days: 14
+
+      - name: Tear down Docker Compose stack
+        if: always()
+        run: docker compose down -v
