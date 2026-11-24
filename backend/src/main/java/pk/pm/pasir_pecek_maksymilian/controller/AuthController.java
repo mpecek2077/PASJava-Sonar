@@ -1,5 +1,7 @@
 package pk.pm.pasir_pecek_maksymilian.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import java.util.Map;
 @CrossOrigin
 @RestController
 @RequestMapping("/api/auth")
+@Tag(name = "Authentication", description = "User registration and JWT login endpoints")
 public class AuthController {
 
     private final UserService userService;
@@ -23,18 +26,20 @@ public class AuthController {
         this.userService = userService;
     }
 
+    @Operation(summary = "Register a new user account")
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(userService.register(userDTO));
     }
 
+    @Operation(summary = "Authenticate user and obtain a JWT token")
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginDto dto) {
         try {
             String token = userService.login(dto);
             return ResponseEntity.ok(Map.of("token", token));
         } catch (UsernameNotFoundException | BadCredentialsException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage()); // Kod 401
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
         }
     }
 }

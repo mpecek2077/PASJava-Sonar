@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PaSiRPecekMaksymilianApplication {
+public class BudgetSplitApiApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(PaSiRPecekMaksymilianApplication.class, args);
+        SpringApplication.run(BudgetSplitApiApplication.class, args);
     }
 
 }

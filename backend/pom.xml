@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>pk.pm</groupId>
-    <artifactId>PASiR_Pecek_Maksymilian</artifactId>
+    <artifactId>budget-split-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>PASiR_Pecek_Maksymilian</name>
-    <description>PASiR_Pecek_Maksymilian</description>
+    <name>Budget Split API</name>
+    <description>REST, GraphQL and WebSocket API for personal budget tracking and group debt splitting</description>
     <url/>
     <licenses>
         <license/>
@@ -53,11 +53,6 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -115,8 +110,9 @@
             <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-websocket</artifactId>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>3.0.3</version>
         </dependency>
     </dependencies>
 
